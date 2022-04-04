@@ -1,0 +1,763 @@
+:root {
+  --payment-form-width: 320px;
+  --input-height: 50px;
+  --input-font-size: 14px;
+  --input-placeholder-font-size: 14px;
+  --white: #fff;
+  --black: #000;
+  --light-gray: #e2e2e2;
+  --medium-gray: #e5e5e5;
+  --gray: #b2b2b2;
+  --dark-gray: #7c7c7c;
+  --darker-gray: #292929;
+  --light-red: #d96830;
+  --red: #ec5f77;
+  --blue-green: #6cc3b4;
+  --green: #64d39b;
+  --yellow: #ffa41b;
+  --brand-dark-green: #323416;
+  --brand-light-green: #8C9E6E;
+  --brand-white: #FFFFFD;
+}
+
+.light {
+  --background: var(--brand-white);
+  --input-text: var(--black);
+  --input-border: var(--brand-light-green);
+  --input-border-focus: var(--brand-dark-green);
+  --input-border-error: var(--light-red);
+  --input-border-success: var(--green);
+  --placeholder: var(--light-gray);
+  --label: var(--medium-gray);
+  --label-focus: var(--gray);
+  --button-background-disabled: var(--light-gray);
+  --button-background: var(--brand-light-green);
+  --button-background-error: var(--red);
+  --button-text: var(--white);
+  --switch-moon-color: var(--white);
+  --switch-sun-color: var(--yellow);
+  --switch-border-color: var(--white);
+  --confirmation-text: var(--darker-gray);
+  --back-button: var(--dark-gray);
+}
+
+.dark {
+  --background: var(--black);
+  --input-text: var(--white);
+  --input-border: var(--brand-dark-green);
+  --input-border-focus: var(--brand-light-green);
+  --input-border-error: var(--light-red);
+  --input-border-success: var(--green);
+  --placeholder: var(--dark-gray);
+  --label: var(--white);
+  --label-focus: var(--light-gray);
+  --button-background-disabled: var(--darker-gray);
+  --button-background: var(--brand-white);
+  --button-background-error: var(--red);
+  --button-text: var(--black);
+  --switch-moon-color: var(--white);
+  --switch-sun-color: var(--yellow);
+  --switch-border-color: var(--white);
+  --confirmation-text: var(--white);
+  --back-button: var(--gray);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  font-family: Arial;
+  letter-spacing: 0.5px;
+}
+
+body {
+  background: var(--background);
+}
+
+/* Set autofill colour */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--background) inset !important;
+  box-shadow: 0 0 0 30px var(--background) inset !important;
+}
+
+/* Set autofill text colour*/
+input:-webkit-autofill {
+  -webkit-text-fill-color: var(--input-text) !important;
+}
+
+iframe {
+  /* Fix mobile Safari bug */
+  height: var(--input-height) !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+/* Payment Form */
+
+#payment-form {
+  width: var(--payment-form-width);
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+/* Cardholder Name */
+
+#cardholder {
+  padding-left: 1rem;
+  height: 50px;
+  width: calc(100% - 1.1rem);
+  border-radius: 5px;
+  border: 1px solid var(--input-border);
+  color: var(--input-text);
+  font-size: var(--input-font-size);
+  background-color: var(--background);
+}
+
+#cardholder.invalid {
+  border: 1px solid var(--input-border-error);
+}
+
+#cardholder.success {
+  border: 1px solid var(--input-border-success);
+  box-shadow: inset 0px 0px 0px 1px var(--input-border);
+}
+
+#cardholder:focus {
+  border: 1px solid var(--input-border-focus);
+}
+
+#cardholder::placeholder {
+  color: var(--placeholder);
+  font-size: (var(--input-placeholder-font-size));
+}
+
+/* Inputs */
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.2rem;
+}
+
+.input-wrapper label {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transition: 0.1s;
+  color: var(--label);
+  background-color: var(--background);
+  font-size: 0.8rem;
+  pointer-events: none;
+}
+
+.input-wrapper .up {
+  transform: translate(0, -2rem);
+  color: var(--label-focus);
+  font-size: 0.8rem;
+  padding: 0 0.5rem;
+  left: 0.6rem;
+}
+
+.card-number {
+  height: var(--input-height);
+}
+
+.card-number img {
+  position: absolute;
+  width: 35px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 10px;
+  margin: auto;
+  margin-right: 10px;
+}
+
+.date-and-cvv {
+  display: flex;
+}
+
+.expiry-date {
+  margin-right: 0.5rem;
+}
+
+.cvv {
+  margin-left: 0.5rem;
+}
+
+.success {
+  border: 1px solid var(--input-border-success);
+  border-radius: 6px;
+}
+
+/* Payment button */
+
+.button-area {
+  position: fixed;
+}
+
+.pay {
+  border-radius: 3px;
+  background-color: var(--button-background);
+  color: var(--button-text);
+  font-weight: 600;
+  font-size: 15px;
+  height: var(--input-height);
+  width: var(--payment-form-width);
+  border: none;
+  cursor: pointer;
+  -webkit-transition: color 0.3s cubic-bezier(0.4, 0, 0.6, 1);
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.pay:hover {
+  box-shadow: 0 2px 5px 0 var(--input-border-focus);
+}
+
+.pay:disabled {
+  background-color: var(--button-background-disabled) !important;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.pay .error {
+  background-color: var(--button-background-error);
+}
+
+.giropay {
+  border-radius: 3px;
+  background-color: #13395E;
+  color: var(--button-text);
+  font-weight: 600;
+  font-size: 15px;
+  height: var(--input-height);
+  width: var(--payment-form-width);
+  border: none;
+  cursor: pointer;
+  -webkit-transition: color 0.3s cubic-bezier(0.4, 0, 0.6, 1);
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.6, 1);
+  position: absolute;
+  top: 300%;
+}
+
+.giropay:hover {
+  box-shadow: 0 2px 5px 0 var(--input-border-focus);
+}
+
+.giropay:disabled {
+  background-color: var(--button-background-disabled) !important;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.giropay .error {
+  background-color: var(--button-background-error);
+}
+
+/* Loader */
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 1em;
+  height: 1em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: loading 1.8s infinite ease-in-out;
+  animation: loading 1.8s infinite ease-in-out;
+}
+
+.loader {
+  color: var(--input-text);
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 100px;
+  right: 0;
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+  clip-path: circle(60px at center);
+}
+
+.pay-loader {
+  margin: auto auto 60px;
+  color: var(--background);
+  bottom: 0px;
+  clip-path: circle(60px at center);
+}
+
+.loader:before,
+.loader:after {
+  content: "";
+  position: absolute;
+  top: 0;
+}
+
+.loader:before {
+  left: -1.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+.loader:after {
+  left: 1.5em;
+}
+
+@-webkit-keyframes loading {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+
+@keyframes loading {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+
+/* Hints */
+
+.hint {
+  position: absolute;
+  top: 0;
+  margin-top: calc(var(--input-height) / 3);
+  width: 200px;
+  font-size: 11px;
+  color: var(--input-border-focus);
+  margin-bottom: calc(var(--input-height) / 3);
+  display: flex;
+  align-items: center;
+}
+
+.line {
+  display: block;
+  width: 15px;
+  border-top: 1px solid var(--input-border-focus);
+}
+
+.error div {
+  width: var(--payment-form-width);
+}
+
+.error .line {
+  height: 15px;
+  border-top: none;
+  border-left: 1px solid var(--button-background-error);
+  position: fixed;
+  left: calc(var(--payment-form-width) / 2);
+}
+
+.error .hint {
+  top: 55px;
+  text-align: center;
+  display: inline-block;
+}
+
+/* Check mark */
+
+.checkmark {
+  position: absolute;
+  top: calc(var(--input-height) / 2 + 0.2em);
+  left: calc(var(--payment-form-width) / 2 - 1em);
+}
+
+.checkmark.draw:after {
+  animation-duration: 1200ms;
+  animation-timing-function: ease;
+  animation-name: checkmark;
+  transform: scaleX(-1) rotate(135deg);
+}
+
+.checkmark:after {
+  opacity: 0;
+  transform-origin: left top;
+  border-right: 3px solid var(--button-text);
+  border-top: 3px solid var(--button-text);
+  content: "";
+  position: absolute;
+}
+
+@keyframes checkmark {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 1;
+  }
+  20% {
+    height: 0;
+    width: 0.75em;
+    opacity: 1;
+  }
+  40% {
+    height: 2em;
+    width: 0.75em;
+    opacity: 1;
+  }
+  60% {
+    height: 2em;
+    width: 0.75em;
+    opacity: 1;
+  }
+  80% {
+    height: 2em;
+    width: 0.75em;
+    opacity: 1;
+  }
+  100% {
+    height: 0;
+    width: 0;
+    opacity: 0;
+  }
+}
+
+/* Cross */
+
+.cross {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: calc(var(--input-height) / 2 - 1.5em);
+  left: calc(var(--payment-form-width) / 2 - 1.5em);
+  stroke: var(--button-text);
+}
+
+.cross .draw {
+  opacity: 1;
+  stroke-width: 2px;
+  transform-origin: 50% 50%;
+  stroke-dasharray: 29;
+  stroke-dashoffset: 29;
+  animation: stroke 1.2s cubic-bezier(0.3, 0.75, 0.3, 1);
+}
+
+@keyframes stroke {
+  0% {
+    width: 50px;
+    height: 50px;
+    opacity: 1;
+  }
+  80% {
+    width: 25px;
+    height: 25px;
+    opacity: 1;
+  }
+  85% {
+    width: 25px;
+    height: 25px;
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    stroke-dashoffset: 0;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+/* Theme switcher */
+
+.switch {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: -webkit-box;
+  display: flex;
+  float: right;
+  margin: 10px;
+}
+
+.switch label {
+  position: relative;
+  display: block;
+  width: 62px;
+  height: 30px;
+  border-radius: 40px;
+  background-color: var(--black);
+  outline: none;
+  border-color: var(--switch-border-color);
+  box-shadow: 0 0 10px var(--switch-border-color);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+label.switch:before,
+label.switch:after {
+  display: block;
+  position: absolute;
+  content: "";
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  top: 6px;
+  left: 6px;
+  -webkit-transition: 0.5s ease;
+  transition: 0.5s ease;
+}
+
+label.switch:before {
+  background-color: var(--switch-sun-color);
+}
+
+label.switch:after {
+  background-color: var(--black);
+  left: -18px;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"]:checked + label:before {
+  background-color: var(--switch-moon-color);
+  -webkit-transform: translateX(32px);
+  transform: translateX(32px);
+}
+
+input[type="checkbox"]:checked + label:after {
+  -webkit-transform: translateX(48px) scale(1);
+  transform: translateX(48px) scale(1);
+}
+
+/* Outcome pages */
+
+.confirmation {
+  color: var(--confirmation-text);
+  width: var(--payment-form-width);
+  position: absolute;
+  left: 50%;
+  top: 46.5%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.card-confirmation {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+}
+
+#message {
+  position: relative;
+  top: 15px;
+}
+
+#scheme {
+  height: 150%;
+  width: 150%;
+  position: relative;
+  top: 30px;
+  left: 100px;
+}
+
+#confirm-animation {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  margin-top: -130px;
+  margin-left: -50px;
+  width: 100px;
+  height: 100px;
+}
+
+#confirm-animation.checkmark.draw:after {
+  animation-name: checkmark-outcome;
+  animation-fill-mode: forwards;
+}
+
+#confirm-animation.checkmark:after {
+  position: absolute;
+  top: 106%;
+  left: 76%;
+  margin-top: -50px;
+  margin-left: -50px;
+  border-right: 3px solid var(--white);
+  border-top: 3px solid var(--white);
+  opacity: 1;
+}
+
+@keyframes checkmark-outcome {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 1;
+  }
+  20% {
+    height: 0;
+    width: 1.13em;
+    opacity: 1;
+  }
+  40% {
+    height: 3em;
+    width: 1.13em;
+    opacity: 1;
+  }
+  60% {
+    height: 3em;
+    width: 1.13em;
+    opacity: 1;
+  }
+  80% {
+    height: 3em;
+    width: 1.13em;
+    opacity: 1;
+  }
+  100% {
+    height: 3em;
+    width: 1.13em;
+    opacity: 1;
+  }
+}
+
+.text-appear {
+  animation-name: text-appear;
+  animation-duration: 1.5s;
+}
+@keyframes text-appear {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 1.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#confirm-animation .cross {
+  height: 75px;
+  width: 75px;
+  left: 13px;
+  top: 13px;
+  stroke: var(--white);
+}
+
+#confirm-animation .cross .draw {
+  animation: outcome-stroke 1.2s cubic-bezier(0.3, 0.75, 0.3, 1) forwards;
+}
+
+@keyframes outcome-stroke {
+  0% {
+    width: 50px;
+    height: 50px;
+    opacity: 1;
+  }
+  80% {
+    width: 25px;
+    height: 25px;
+    opacity: 1;
+  }
+  85% {
+    width: 25px;
+    height: 25px;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    width: 25px;
+    height: 25px;
+    opacity: 1;
+  }
+}
+
+.back {
+  border-radius: 50px;
+  box-shadow: 0 2px 5px 0 var(--input-border-focus);
+  background-color: var(--background);
+  font-weight: 600;
+  font-size: 15px;
+  height: var(--input-height);
+  width: 150px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  top: 100px;
+  color: var(--back-button);
+}
+
+.back:hover {
+  color: var(--label-focus);
+}
+
+#gpay {
+  position: absolute;
+  height: 25.2px;
+  width: 40.5px;
+  left: 150px;
+  top: 29.5px;
+}
+
+#container {
+  position: absolute;
+  top: 100px;
+  left: 35px;
+  margin-bottom: 20px;
+}
+
+#logo {
+  height: 5%;
+  width: 5%;
+  margin: 0px;
+  padding: 1%;
+}
+
+#product {
+  height: 400px;
+  width: 400px;
+  margin: 0px;
+  padding: 1%;
+  position: absolute;
+  top: 15%;
+  left: 55%;
+}
+
+#product-name {
+  position: relative;
+  top: 5%;
+  left: 85%;
+  color: #323416;
+  max-width: fit-content;
+}
+
+#header {
+  color: #8C9E6E;
+  margin: 10px;
+  padding: 10px;
+  position: absolute;
+  top: 2%;
+  left: 10%;
+}

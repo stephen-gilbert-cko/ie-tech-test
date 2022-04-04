@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Payment Demo</title>
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="icon" href="./images/favicon.ico" type="image/ico" />
+</head>
+
+<body class="light">
+
+  <!-- Loader -->
+  <div class="loader"></div>
+
+  <!-- Theme switcher -->
+  <div class="switch">
+    <input type="checkbox" id="theme-switch" />
+    <label class="switch" for="theme-switch"></label>
+  </div>
+
+  <img id="logo" src="./images/logo.png">
+  <h1 id="header">Checkout</h1>
+
+  <div id="payment-form" style="display: none;" method="POST" action="https://merchant.com/charge-giropay">
+
+    <div id="inputs">
+
+      <!-- Cardholder Name -->
+      <div class="input-wrapper name">
+        <label id="name-label" for="name-input">Cardholder Name</label>
+        <input type="text" name="cc-name" id="cardholder" placeholder="John Smith" autocomplete="cc-name">
+      </div>
+
+      <!-- Card Number -->
+      <div class="input-wrapper card-number">
+        <label id="card-label">Card Number</label>
+        <div class="card-and-scheme">
+          <div class="card-number-frame"></div>
+          <img id="card-scheme" />
+        </div>
+      </div>
+
+      <div class="date-and-cvv">
+
+        <!-- Expiry Date -->
+        <div class="input-wrapper expiry-date">
+          <label id="date-label">Expiry Date</label>
+          <div class="expiry-date-frame"></div>
+        </div>
+
+        <!-- Cvv -->
+        <div class="input-wrapper cvv">
+          <label id="cvv-label">CVV</label>
+          <div class="cvv-frame"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="button-area">
+      <button class="pay" disabled>Pay with Card</button>
+      <div class="loader pay-loader hide"></div>
+      <div id="outcome"></div>
+      <div class="error hide">
+        <span class="line"></span>
+        <div id="error-hint" class="hint"></div>
+      </div>
+
+      <script src="./gpay.js"></script>
+
+      <!-- Google Pay button -->
+      <div id="container"></div>
+      <script async src="https://pay.google.com/gp/p/js/pay.js" onload="onGooglePayLoaded()"></script>
+      
+      <div>
+        <button class="giropay" type="submit">Pay with Giropay</button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div id="product">
+    <img id="product" src="./images/product.png">
+    <h1 id="product-name">T-shirt €30</h1>
+  </div>
+
+  </div>
+
+  <!-- Checkout.com CDN -->
+  <script src="https://cdn.checkout.com/js/framesv2.min.js"></script>
+
+  <!-- Our scripts -->
+  <script src="./script.js"></script>
+  <script src="./frames.js"></script>
+
+</body>
+
+</html>
